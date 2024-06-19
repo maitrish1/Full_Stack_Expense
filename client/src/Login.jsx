@@ -4,6 +4,8 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import axios from "axios";
 function Login() {
   const [login, setlogin] = useState({
     email: "",
@@ -20,9 +22,16 @@ function Login() {
     setlogin({ ...login, [e.target.name]: e.target.value });
   }
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
     console.log(login);
+    try{
+      await axios.post('http://localhost:8800/user/users',login)
+      toast.success('Your profile is successfully created!')
+  }
+  catch(err){
+      toast.error("can't login")
+  }
   }
   return (
     <div>
