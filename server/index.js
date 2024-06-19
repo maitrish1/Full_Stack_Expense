@@ -1,11 +1,21 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2');
+import express from "express";
+import cors from "cors";
+import userRoutes from "./routes/userRoutes.js";
+import sequelize from "./config/database.js";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.listen(8800,(req,res)=>{
-    console.log('Server running')
-})
+app.use("/api", userRoutes);
+sequelize
+  .sync()
+  .then(() => {
+    console.log("Synced with database");
+  })
+  .catch((err) => {
+    console.log(err);
+  });
+app.listen(8800, () => {
+  console.log("Server running");
+});

@@ -4,9 +4,10 @@ import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { Link } from "react-router-dom";
-function Login() {
-  const [login, setlogin] = useState({
+function SignUp() {
+  const [signup, setsignup] = useState({
     email: "",
+    name: "",
     password: "",
   });
 
@@ -17,25 +18,25 @@ function Login() {
     event.preventDefault();
   };
   function handleChange(e) {
-    setlogin({ ...login, [e.target.name]: e.target.value });
+    setsignup({ ...signup, [e.target.name]: e.target.value });
   }
 
-  function handleLogin(e) {
+  function handleSignUp(e) {
     e.preventDefault();
-    console.log(login);
+    console.log(signup);
   }
   return (
     <div>
       <Card sx={{ minWidth: 275, p: 2 }}>
-        <Typography variant="h4">Login here</Typography>
-        <form onSubmit={handleLogin}>
+        <Typography variant="h4">Sign Up here</Typography>
+        <form onSubmit={handleSignUp}>
           <CardContent
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
           >
             <TextField
               size="small"
               onChange={handleChange}
-              value={login.email}
+              value={signup.email}
               name="email"
               type="email"
               placeholder="johndoe@gmail.com"
@@ -43,7 +44,15 @@ function Login() {
             <TextField
               size="small"
               onChange={handleChange}
-              value={login.password}
+              value={signup.name}
+              name="name"
+              type="text"
+              placeholder="john doe"
+            />
+            <TextField
+              size="small"
+              onChange={handleChange}
+              value={signup.password}
               name="password"
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -62,13 +71,13 @@ function Login() {
             />
           </CardContent>
           <Button variant="contained" type="submit">
-            Login
+            Sign Up
           </Button>
         </form>
-        <Link to="/sign-up"> Don&apos;t have an account? Sign-up here</Link>
+        <Link to="/Login"> Already have an account? Login here</Link>
       </Card>
     </div>
   );
 }
 
-export default Login;
+export default SignUp;
