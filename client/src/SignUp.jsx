@@ -3,14 +3,17 @@ import { Button, Card, IconButton, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
+import toast from "react-hot-toast";
+
 function SignUp() {
+    const navigate = useNavigate()
   const [signup, setsignup] = useState({
     email: "",
     name: "",
     password: "",
   });
-
   const [showPassword, setShowPassword] = useState(false);
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -21,9 +24,16 @@ function SignUp() {
     setsignup({ ...signup, [e.target.name]: e.target.value });
   }
 
-  function handleSignUp(e) {
+  async function handleSignUp(e) {
     e.preventDefault();
-    console.log(signup);
+    try{
+        await axios.post('http://localhost:8800/user/users',signup)
+        toast.success('Your profile is successfully created!')
+        navigate('/login')
+    }
+    catch(err){
+        toast.error('Email is already present')
+    }
   }
   return (
     <div>
@@ -33,7 +43,7 @@ function SignUp() {
           <CardContent
             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
           >
-            <TextField
+            <TextField required
               size="small"
               onChange={handleChange}
               value={signup.email}
@@ -41,7 +51,7 @@ function SignUp() {
               type="email"
               placeholder="johndoe@gmail.com"
             />
-            <TextField
+            <TextField required
               size="small"
               onChange={handleChange}
               value={signup.name}
@@ -49,7 +59,7 @@ function SignUp() {
               type="text"
               placeholder="john doe"
             />
-            <TextField
+            <TextField required
               size="small"
               onChange={handleChange}
               value={signup.password}

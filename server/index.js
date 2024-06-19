@@ -7,7 +7,11 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use("/api", userRoutes);
+app.use("/user", userRoutes);
+
+app.get('/',(req,res)=>{
+    res.json('App is running')
+})
 sequelize
   .sync()
   .then(() => {

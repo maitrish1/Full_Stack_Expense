@@ -5,7 +5,11 @@ export const createUser = async (req, res) => {
         const user = await User.create(req.body);
         res.status(201).json(user);
     } catch (err) {
-        res.status(500).json({ error: err.message });
+        if (err.name === 'SequelizeUniqueConstraintError') {
+            res.status(400).json({ error: 'Email is already present' });
+        } else {
+            res.status(500).json({ error: err.message });
+        }
     }
 };
 
