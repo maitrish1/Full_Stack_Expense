@@ -26,11 +26,11 @@ function Login() {
     e.preventDefault();
     console.log(login);
     try{
-      await axios.post('http://localhost:8800/user/users',login)
-      toast.success('Your profile is successfully created!')
+      await axios.post('http://localhost:8800/user/login',login)
+      toast.success('Logged In!')
   }
   catch(err){
-      toast.error("can't login")
+      toast.error(err.response.data.error)
   }
   }
   return (
