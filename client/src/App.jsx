@@ -4,6 +4,7 @@ import Login from './Login'
 import NotFound from './NotFound'
 import SignUp from './SignUp'
 import { Toaster } from 'react-hot-toast';
+import Expenses from './Expenses'
 
 function App() {
 
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path='/login' element={<Login/>}/>
           <Route path='/sign-up' element={<SignUp/>}/>
+          <Route path='/expenses' element ={<Expenses/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </Router>

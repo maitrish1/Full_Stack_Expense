@@ -38,7 +38,7 @@ export const Login = async (req, res) => {
             return res.status(401).json({ error: 'Check Password' });
         }
 
-        res.status(200).json({ message: 'User login successful' });
+        res.status(200).json(user);
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

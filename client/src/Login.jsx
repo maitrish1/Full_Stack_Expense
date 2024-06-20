@@ -3,10 +3,11 @@ import { Button, Card, IconButton, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import axios from "axios";
 function Login() {
+  const navigate=useNavigate()
   const [login, setlogin] = useState({
     email: "",
     password: "",
@@ -24,10 +25,11 @@ function Login() {
 
   async function handleLogin(e) {
     e.preventDefault();
-    console.log(login);
     try{
-      await axios.post('http://localhost:8800/user/login',login)
+      let temp= await axios.post('http://localhost:8800/user/login',login)
+      localStorage.setItem('userid',temp.data.id)
       toast.success('Logged In!')
+      navigate('/expenses')
   }
   catch(err){
       toast.error(err.response.data.error)
