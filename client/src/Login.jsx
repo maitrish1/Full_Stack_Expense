@@ -27,7 +27,8 @@ function Login() {
     e.preventDefault();
     try{
       let temp= await axios.post('http://localhost:8800/user/login',login)
-      localStorage.setItem('userid',temp.data.id)
+      localStorage.setItem('name',temp.data.user.name)
+      localStorage.setItem('token',temp.data.token)
       toast.success('Logged In!')
       navigate('/expenses')
   }

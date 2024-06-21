@@ -2,8 +2,8 @@ import Expense from '../models/Expense.js';
 import User from '../models/User.js';
 
 export const createExpense = async (req, res) => {
-    const { userId, description, amount, category } = req.body;
-    console.log(req.body)
+    const { description, amount, category } = req.body;
+    const userId=req.user.id
     try {
         const user = await User.findByPk(userId);
         if (!user) {
@@ -24,8 +24,7 @@ export const createExpense = async (req, res) => {
 };
 
 export const getUserExpenses = async (req, res) => {
-    const { userId } = req.params;
-
+    const  userId =req.user.id
     try {
         const user = await User.findByPk(userId);
         if (!user) {
@@ -43,9 +42,10 @@ export const getUserExpenses = async (req, res) => {
 };
 
 export const deleteExpense=async(req,res)=>{
-    const {id}=req.params
+    const { id } = req.params;
+    const userId = req.user.id;
     try{
-        const expense=await Expense.findByPk(id)
+        const expense=await Expense.findOne({where:{id,userId}})
         if(!expense){
             return res.status(404).json({error:'Expense not found'})
         }

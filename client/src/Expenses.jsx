@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
 function Expenses() {
-  let userid = localStorage.getItem("userid");
+  let token = localStorage.getItem("token");
+  const loggedInName=localStorage.getItem('name')
   const [expenses, setexpenses] = useState([])
   const [expense, setexpense] = useState({
     amount: 0,
@@ -17,7 +18,11 @@ function Expenses() {
 
   async function getAllExpenses() {
     try {
-      let temp = await axios.get("http://localhost:8800/expense/getExpense/" + userid);
+      let temp = await axios.get("http://localhost:8800/expense/getExpense"+'', {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
       setexpenses(temp.data)
     } catch (err) {
       console.log(err);
@@ -29,13 +34,16 @@ function Expenses() {
   async function handleSubmit(e) {
     e.preventDefault();
     let body={
-      userId:userid,
       amount:expense.amount,
       description:expense.description,
       category:expense.category
     }
     try {
-        await axios.post("http://localhost:8800/expense/createExpense", body);
+        await axios.post("http://localhost:8800/expense/createExpense", body,{
+          headers:{
+            Authorization:`Bearer ${token}`
+          }
+        });
         getAllExpenses()
         toast.success("New Expense Added.")
         setexpense({
@@ -50,7 +58,11 @@ function Expenses() {
 
   async function handleDelete(id){
     try{
-      await axios.delete('http://localhost:8800/expense/deleteExpense/'+id)
+      await axios.delete('http://localhost:8800/expense/deleteExpense/'+id,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       getAllExpenses()
       toast.success("Expense has been deleted")
     }
@@ -60,6 +72,7 @@ function Expenses() {
   }
   return (
     <Box sx={{display:'flex', flexDirection:'column', gap:2}}>
+      Hello, {loggedInName}
       <form className="expense-form" onSubmit={handleSubmit}>
         <TextField
           size="small"
