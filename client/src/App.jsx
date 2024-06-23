@@ -5,6 +5,7 @@ import NotFound from './NotFound'
 import SignUp from './SignUp'
 import { Toaster } from 'react-hot-toast';
 import Expenses from './Expenses'
+import LeaderBoard from './LeaderBoard'
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
           <Route path='/login' element={<Login/>}/>
           <Route path='/sign-up' element={<SignUp/>}/>
           <Route path='/expenses' element ={<Expenses/>}/>
+          <Route path='/leaderboard' element ={<LeaderBoard/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </Router>

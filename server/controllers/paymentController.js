@@ -38,7 +38,7 @@ export const verifyPayment = async (req, res) => {
     if (expectedSignature === signature) {
         try {
             await User.update({ isPremium: "true" }, { where: { id: userId } });
-            res.status(200).json({ message: 'Payment verified successfully and user is now premium' });
+            res.status(200).json({ message: 'Payment verified. You are now a premium user.' });
         } catch (error) {
             res.status(500).json({ error: error.message });
         }
