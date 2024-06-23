@@ -2,9 +2,10 @@ import express from "express";
 import cors from "cors";
 import userRoutes from "./routes/userRoutes.js";
 import sequelize from "./config/database.js";
-import expenseRoutes from './routes/expenseRoutes.js';
 import Expense from "./models/Expense.js";
 import User from "./models/User.js";
+import expenseRoutes from './routes/expenseRoutes.js'
+import paymentRoutes from './routes/paymentRoutes.js'
 
 const app = express();
 app.use(express.json());
@@ -15,7 +16,7 @@ Expense.belongsTo(User, { foreignKey: 'userId' });
 
 app.use("/user", userRoutes);
 app.use('/expense', expenseRoutes);
-
+app.use('/premium', paymentRoutes)
 app.get('/',(req,res)=>{
     res.json('App is running')
 })
