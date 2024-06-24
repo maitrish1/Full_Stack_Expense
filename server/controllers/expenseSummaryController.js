@@ -1,13 +1,12 @@
-import User from '../models/User.js';
-import Expense from '../models/Expense.js';
-import sequelize from '../config/database.js';
+const User = require('../models/User.js');
+const Expense = require('../models/Expense.js');
+const sequelize = require('../config/database.js');
 
-export const getTotalExpensesByUser = async (req, res) => {
+exports.getTotalExpensesByUser = async (req, res) => {
     try {
         const totalExpenses = await Expense.findAll({
             attributes: [
-                'userId',
-                [sequelize.fn('SUM', sequelize.col('amount')), 'totalExpenses']
+                'userId', [sequelize.fn('SUM', sequelize.col('amount')), 'totalExpenses']
             ],
             group: ['userId'],
             order: [[sequelize.literal('totalExpenses'), 'DESC']],

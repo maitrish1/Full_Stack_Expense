@@ -1,5 +1,5 @@
 import CardContent from "@mui/material/CardContent";
-import { Button, Card, IconButton, TextField, Typography } from "@mui/material";
+import { Button, Card, IconButton, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
@@ -77,7 +77,11 @@ function Login() {
             Login
           </Button>
         </form>
+        <Stack flexDirection='column' gap={1}>
         <Link to="/sign-up"> Don&apos;t have an account? Sign-up here</Link>
+        <Link to="/forgot-password"> Forgot your password?</Link>
+        </Stack>
+       
       </Card>
     </div>
   );

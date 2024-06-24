@@ -1,12 +1,13 @@
-import express from 'express';
-import { Login, createUser, getAllUsers, getUserProfile } from '../controllers/userController.js';
-import {authenticateToken} from '../middleware/authMiddleware.js';
+const express = require('express');
+const { Login, createUser, forgotPassword, getAllUsers, getUserProfile } = require('../controllers/userController.js');
+const { authenticateToken } = require('../middleware/authMiddleware.js');
 
 const router = express.Router();
 
 router.post('/users', createUser);
 router.get('/users', getAllUsers);
-router.post('/login',Login)
-router.get('/profile', authenticateToken, getUserProfile); 
+router.post('/login', Login);
+router.get('/profile', authenticateToken, getUserProfile);
+router.post('/forgotpassword', forgotPassword);
 
-export default router;
+module.exports = router;

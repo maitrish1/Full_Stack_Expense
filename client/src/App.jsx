@@ -6,6 +6,7 @@ import SignUp from './SignUp'
 import { Toaster } from 'react-hot-toast';
 import Expenses from './Expenses'
 import LeaderBoard from './LeaderBoard'
+import ForgotPassword from './ForgotPassword'
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
           <Route path='/sign-up' element={<SignUp/>}/>
           <Route path='/expenses' element ={<Expenses/>}/>
           <Route path='/leaderboard' element ={<LeaderBoard/>}/>
+          <Route path='/forgot-password' element={<ForgotPassword/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </Router>

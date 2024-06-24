@@ -1,5 +1,5 @@
-import { DataTypes } from '@sequelize/core';
-import sequelize from '../config/database.js';
+const { DataTypes } = require('@sequelize/core');
+const sequelize = require('../config/database.js');
 
 const Expense = sequelize.define('Expense', {
     id: {
@@ -28,4 +28,4 @@ const Expense = sequelize.define('Expense', {
     timestamps: true
 });
 
-export default Expense;
+module.exports = Expense;

@@ -1,8 +1,8 @@
-import jwt from 'jsonwebtoken';
-import User from '../models/User.js';
+const jwt = require('jsonwebtoken');
+const User = require('../models/User.js');
 
-export const authenticateToken = async (req, res, next) => {
-    const token = req.headers.authorization.split(' ')[1]
+exports.authenticateToken = async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
     if (!token) {
         return res.status(401).json({ message: 'Access token missing' });
     }
@@ -22,8 +22,8 @@ export const authenticateToken = async (req, res, next) => {
     }
 };
 
-export const checkPremium = (req, res, next) => {
-    if (req.user.isPremium==='false') {
+exports.checkPremium = (req, res, next) => {
+    if (req.user.isPremium === 'false') {
         return res.status(403).json({ message: 'Not authorized' });
     }
     next();

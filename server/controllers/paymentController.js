@@ -1,7 +1,7 @@
-import Razorpay from 'razorpay';
-import dotenv from 'dotenv';
-import User from '../models/User.js';
-import crypto from 'crypto'
+const Razorpay = require('razorpay');
+const dotenv = require('dotenv');
+const User = require('../models/User.js');
+const crypto = require('crypto');
 dotenv.config();
 
 const razorpayInstance = new Razorpay({
@@ -9,7 +9,7 @@ const razorpayInstance = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-export const createOrder = async (req, res) => {
+exports.createOrder = async (req, res) => {
     const { amount } = req.body;
     const options = {
         amount: amount * 100, // amount in the smallest currency unit
@@ -25,7 +25,7 @@ export const createOrder = async (req, res) => {
     }
 };
 
-export const verifyPayment = async (req, res) => {
+exports.verifyPayment = async (req, res) => {
     const { orderId, paymentId, signature } = req.body;
     const userId = req.user.id;
 
