@@ -6,6 +6,7 @@ const Expense = require('./models/Expense.js');
 const User = require('./models/User.js');
 const expenseRoutes = require('./routes/expenseRoutes.js');
 const paymentRoutes = require('./routes/paymentRoutes.js');
+const ForgotPasswordRequests=require('./models/ForgotPassword.js')
 
 const app = express();
 app.use(express.json());
@@ -13,6 +14,9 @@ app.use(cors());
 
 User.hasMany(Expense, { foreignKey: 'userId' });
 Expense.belongsTo(User, { foreignKey: 'userId' });
+
+User.hasMany(ForgotPasswordRequests, { foreignKey: 'userId' });
+ForgotPasswordRequests.belongsTo(User, { foreignKey: 'userId' });
 
 app.use('/user', userRoutes);
 app.use('/expense', expenseRoutes);

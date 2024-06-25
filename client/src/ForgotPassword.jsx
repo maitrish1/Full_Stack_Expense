@@ -1,12 +1,11 @@
 import CardContent from "@mui/material/CardContent";
 import { Button, Card, Stack, TextField, Typography } from "@mui/material";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-// import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 import axios from "axios";
 
 function ForgotPassword() {
-  const navigate = useNavigate();
   const [login, setlogin] = useState({
     name:'',
     email: "",
@@ -23,7 +22,7 @@ function ForgotPassword() {
         "http://localhost:8800/user/forgotpassword",
         login
       );
-      console.log(temp);
+      toast.success(temp.data.message)
     } catch (err) {
       console.log(err);
     }
