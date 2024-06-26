@@ -12,6 +12,7 @@
   "dependencies": {
     "@getbrevo/brevo": "^2.2.0",
     "@sequelize/mysql": "^7.0.0-alpha.41",
+    "aws-sdk": "^2.1648.0",
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
     "dotenv": "^16.4.5",

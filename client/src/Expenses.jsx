@@ -16,7 +16,7 @@ import {
   Typography,
 } from "@mui/material";
 import axios from "axios";
-import logo from './assets/logo.png'
+import logo from "./assets/logo.png";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
@@ -33,7 +33,7 @@ function Expenses() {
 
   useEffect(() => {
     getAllExpenses();
-    checkPremiumStatus()
+    checkPremiumStatus();
   }, []);
 
   async function getAllExpenses() {
@@ -95,14 +95,11 @@ function Expenses() {
 
   async function checkPremiumStatus() {
     try {
-      const response = await axios.get(
-        "http://localhost:8800/user/profile",
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axios.get("http://localhost:8800/user/profile", {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       setIsPremium(response.data.isPremium);
     } catch (err) {
       console.log(err);
@@ -144,7 +141,7 @@ function Expenses() {
             }
           );
           toast.success(result.data.message);
-          checkPremiumStatus(); 
+          checkPremiumStatus();
         },
         prefill: {
           name: "Maitrish",
@@ -173,14 +170,18 @@ function Expenses() {
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-      <Stack flexDirection='row' gap={2}>
-      <Typography variant="h4">
-        Hello, {loggedInName} {isPremium==='true'? "⭐": ''}
-      </Typography>
-      {isPremium==='false'? <Button variant="text" onClick={()=> handlePayment()}>Buy Premium</Button> :'' }
-      
+      <Stack flexDirection="row" gap={2}>
+        <Typography variant="h4">
+          Hello, {loggedInName} {isPremium === "true" ? "⭐" : ""}
+        </Typography>
+        {isPremium === "false" ? (
+          <Button variant="text" onClick={() => handlePayment()}>
+            Buy Premium
+          </Button>
+        ) : (
+          ""
+        )}
       </Stack>
-      
 
       <form className="expense-form" onSubmit={handleSubmit}>
         <TextField
@@ -216,7 +217,7 @@ function Expenses() {
           Add Expense
         </Button>
       </form>
-     
+
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>

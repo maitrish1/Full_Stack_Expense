@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   MenuItem,
   Paper,
   Select,
@@ -97,6 +98,24 @@ function Report() {
   const displayedExpenses = filterExpenses(timeline);
   const totalAmount = calculateTotalAmount(displayedExpenses);
 
+  async function handleDownload() {
+    let body={displayedExpenses,timeline}
+    try{
+      let temp=await axios.post("http://localhost:8800/expense/downloadExpense", body, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      let a=document.createElement('a')
+      a.href=temp.data.fileurl
+      a.download=temp.data.fileurl
+      a.click()
+      toast.success('Download successful!')
+    }
+    catch(err){
+      toast.error('There was something wrong.')
+    }
+  }
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Stack flexDirection="row" gap={2}>
@@ -114,6 +133,7 @@ function Report() {
           <MenuItem value="weekly">Weekly</MenuItem>
           <MenuItem value="monthly">Monthly</MenuItem>
         </Select>
+        <Button onClick={handleDownload}>Download Expenses</Button>
       </Stack>
 
       <TableContainer component={Paper}>
@@ -137,9 +157,7 @@ function Report() {
                 <TableCell align="right">{row.amount}</TableCell>
               </TableRow>
             ))}
-           
           </TableBody>
-          
         </Table>
       </TableContainer>
       {totalAmount}
