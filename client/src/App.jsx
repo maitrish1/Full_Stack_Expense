@@ -8,6 +8,7 @@ import Expenses from './Expenses'
 import LeaderBoard from './LeaderBoard'
 import ForgotPassword from './ForgotPassword'
 import ResetPassword from './ResetPassword'
+import Report from './Report'
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
           <Route path='/leaderboard' element ={<LeaderBoard/>}/>
           <Route path='/forgot-password' element={<ForgotPassword/>}/>
           <Route path='/resetpassword/:id' element={<ResetPassword/>}/>
+          <Route path='/report' element={<Report/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
       </Router>
