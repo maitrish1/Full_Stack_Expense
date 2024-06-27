@@ -7,8 +7,11 @@ const User = require('./models/User.js');
 const expenseRoutes = require('./routes/expenseRoutes.js');
 const paymentRoutes = require('./routes/paymentRoutes.js');
 const ForgotPasswordRequests=require('./models/ForgotPassword.js')
-
+const helmet=require('helmet')
+const morgan=require('morgan')
 const app = express();
+const fs=require('fs')
+const path=require('path')
 app.use(express.json());
 app.use(cors());
 
@@ -25,6 +28,10 @@ app.get('/', (req, res) => {
     res.json('App is running');
 });
 
+const accessLogStream=fs.createWriteStream(path.join(__dirname,'access.log'),{flags:'a'})
+app.use(helmet())
+
+app.use(morgan('combined',{stream:accessLogStream}))
 sequelize
   .sync()
   .then(() => {
