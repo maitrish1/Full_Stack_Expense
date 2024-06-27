@@ -19,7 +19,7 @@ function ForgotPassword() {
     e.preventDefault();
     try {
       let temp = await axios.post(
-        "http://localhost:8800/user/forgotpassword",
+        "https://localhost:8800/user/forgotpassword",
         login
       );
       toast.success(temp.data.message)

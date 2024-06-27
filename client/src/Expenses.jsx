@@ -42,7 +42,7 @@ function Expenses() {
   async function getAllExpenses() {
     try {
       let temp = await axios.get(
-        "http://localhost:8800/expense/getExpense" + "",
+        "https://localhost:8800/expense/getExpense" + "",
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -65,7 +65,7 @@ function Expenses() {
       category: expense.category,
     };
     try {
-      await axios.post("http://localhost:8800/expense/createExpense", body, {
+      await axios.post("https://localhost:8800/expense/createExpense", body, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -84,7 +84,7 @@ function Expenses() {
 
   async function handleDelete(id) {
     try {
-      await axios.delete("http://localhost:8800/expense/deleteExpense/" + id, {
+      await axios.delete("https://localhost:8800/expense/deleteExpense/" + id, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -98,7 +98,7 @@ function Expenses() {
 
   async function checkPremiumStatus() {
     try {
-      const response = await axios.get("http://localhost:8800/user/profile", {
+      const response = await axios.get("https://localhost:8800/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -112,7 +112,7 @@ function Expenses() {
   async function handlePayment() {
     try {
       const { data } = await axios.post(
-        "http://localhost:8800/premium/createOrder",
+        "https://localhost:8800/premium/createOrder",
         { amount: 100 },
         {
           headers: {
@@ -131,7 +131,7 @@ function Expenses() {
         order_id: data.orderId,
         handler: async function (response) {
           const result = await axios.post(
-            "http://localhost:8800/premium/verifyPayment",
+            "https://localhost:8800/premium/verifyPayment",
             {
               orderId: data.orderId,
               paymentId: response.razorpay_payment_id,

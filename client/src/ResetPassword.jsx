@@ -17,7 +17,7 @@ function ResetPassword() {
   
   async function verifyToken(){
     try{
-      let temp=await axios.get('http://localhost:8800/user/resetpassword/'+id)
+      let temp=await axios.get('https://localhost:8800/user/resetpassword/'+id)
       toast.success(temp.data.message)
     }
     catch(err){
@@ -32,7 +32,7 @@ function ResetPassword() {
     e.preventDefault();
     try {
       let temp = await axios.post(
-        "http://localhost:8800/user/resetpassword/"+id,
+        "https://localhost:8800/user/resetpassword/"+id,
         login
       );
       toast.success(temp.data.message)

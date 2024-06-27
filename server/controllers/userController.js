@@ -110,7 +110,7 @@ exports.forgotPassword = async (req, res) => {
       sender,
       to: receivers,
       subject: 'Reset your password',
-      textContent: `Click this link to reset your password: http://localhost:5173/resetpassword/${resetToken}`
+      textContent: `Click this link to reset your password: https://localhost:5173/resetpassword/${resetToken}`
     }).then(() => {
       res.status(200).json({ message: 'Password reset link sent to your email' });
     }).catch((err) => {

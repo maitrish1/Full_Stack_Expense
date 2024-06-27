@@ -19,7 +19,7 @@ function LeaderBoard() {
 
     async function fetchLeaderBoard(){
         try{
-            let temp=await axios.get('http://localhost:8800/premium/totalExpenses',{
+            let temp=await axios.get('https://localhost:8800/premium/totalExpenses',{
                 headers: {
                     Authorization: `Bearer ${token}`,
                   }

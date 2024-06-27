@@ -43,7 +43,7 @@ function Report() {
 
   async function getAllExpenses() {
     try {
-      let temp = await axios.get("http://localhost:8800/expense/getExpense", {
+      let temp = await axios.get("https://localhost:8800/expense/getExpense", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -56,7 +56,7 @@ function Report() {
 
   async function checkPremiumStatus() {
     try {
-      const response = await axios.get("http://localhost:8800/user/profile", {
+      const response = await axios.get("https://localhost:8800/user/profile", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -104,7 +104,7 @@ function Report() {
   async function handleDownload() {
     let body={displayedExpenses,timeline}
     try{
-      let temp=await axios.post("http://localhost:8800/expense/downloadExpense", body, {
+      let temp=await axios.post("https://localhost:8800/expense/downloadExpense", body, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

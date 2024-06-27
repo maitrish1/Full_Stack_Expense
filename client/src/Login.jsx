@@ -26,7 +26,7 @@ function Login() {
   async function handleLogin(e) {
     e.preventDefault();
     try{
-      let temp= await axios.post('http://localhost:8800/user/login',login)
+      let temp= await axios.post('https://localhost:8800/user/login',login)
       localStorage.setItem('name',temp.data.user.name)
       localStorage.setItem('token',temp.data.token)
       toast.success('Logged In!')

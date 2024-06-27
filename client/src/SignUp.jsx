@@ -27,7 +27,7 @@ function SignUp() {
   async function handleSignUp(e) {
     e.preventDefault();
     try{
-        await axios.post('http://localhost:8800/user/users',signup)
+        await axios.post('https://localhost:8800/user/users',signup)
         toast.success('Your profile is successfully created!')
         navigate('/login')
     }
