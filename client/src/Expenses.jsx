@@ -11,6 +11,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   TextField,
   Typography,
@@ -21,6 +22,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined";
 function Expenses() {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   let token = localStorage.getItem("token");
   const loggedInName = localStorage.getItem("name");
   const [expenses, setexpenses] = useState([]);
@@ -168,6 +171,15 @@ function Expenses() {
     }
   }
 
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Stack flexDirection="row" gap={2}>
@@ -219,7 +231,7 @@ function Expenses() {
       </form>
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+        <Table size="small" sx={{ minWidth: 650 }} aria-label="simple table">
           <TableHead>
             <TableRow>
               <TableCell>Amount</TableCell>
@@ -229,7 +241,7 @@ function Expenses() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {expenses.map((row) => (
+            {expenses.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {row.amount}
@@ -245,6 +257,15 @@ function Expenses() {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+        rowsPerPageOptions={[5,10, 25, 100]}
+        component="div"
+        count={expenses.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       </TableContainer>
     </Box>
   );

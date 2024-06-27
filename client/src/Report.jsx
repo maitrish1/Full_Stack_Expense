@@ -10,6 +10,7 @@ import {
   TableCell,
   TableContainer,
   TableHead,
+  TablePagination,
   TableRow,
   Typography,
 } from "@mui/material";
@@ -20,6 +21,8 @@ import moment from "moment";
 
 function Report() {
   let token = localStorage.getItem("token");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
   const loggedInName = localStorage.getItem("name");
   const [expenses, setexpenses] = useState([]);
   const [timeline, settimeline] = useState("Month");
@@ -116,6 +119,16 @@ function Report() {
       toast.error('There was something wrong.')
     }
   }
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(+event.target.value);
+    setPage(0);
+  };
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <Stack flexDirection="row" gap={2}>
@@ -147,7 +160,7 @@ function Report() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {displayedExpenses.map((row) => (
+            {displayedExpenses.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => (
               <TableRow key={row.id}>
                 <TableCell component="th" scope="row">
                   {new Date(row.createdAt).toLocaleString()}
@@ -159,8 +172,17 @@ function Report() {
             ))}
           </TableBody>
         </Table>
+        <TablePagination
+        rowsPerPageOptions={[5,10, 25, 100]}
+        component="div"
+        count={expenses.length}
+        rowsPerPage={rowsPerPage}
+        page={page}
+        onPageChange={handleChangePage}
+        onRowsPerPageChange={handleChangeRowsPerPage}
+      />
       </TableContainer>
-      {totalAmount}
+      Total Amount - {totalAmount}
     </Box>
   );
 }
